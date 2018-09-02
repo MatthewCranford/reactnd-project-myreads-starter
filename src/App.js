@@ -1,6 +1,9 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
+
+const data = BooksAPI.getAll().then(data => data);
+console.log(data);
 
 class BooksApp extends React.Component {
   state = {
