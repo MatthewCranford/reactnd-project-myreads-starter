@@ -10,13 +10,19 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+      this.setState({ books });
+      console.log('state before update:',this.state);
     })
   }
 
   changeShelf(book,e) {
-    this.setState({book: book.shelf = e.target.value});
+    
+    const booksCopy = JSON.parse(JSON.stringify(this.state.books));
+    booksCopy[book].shelf = e.target.value;
+    // this.setState({book: book.shelf = e.target.value});
+    this.setState({ books: booksCopy })
     BooksAPI.update(book, e.target.value);
+    console.log('state after update:',this.state);
   }
 
   render() {
