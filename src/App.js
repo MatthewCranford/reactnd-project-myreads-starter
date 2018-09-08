@@ -15,14 +15,28 @@ class BooksApp extends React.Component {
     })
   }
 
-  changeShelf(book,e) {
-    
-    const booksCopy = JSON.parse(JSON.stringify(this.state.books));
-    booksCopy[book].shelf = e.target.value;
-    // this.setState({book: book.shelf = e.target.value});
-    this.setState({ books: booksCopy })
-    BooksAPI.update(book, e.target.value);
-    console.log('state after update:',this.state);
+  changeShelf(book, e) {
+    const newShelf = e.target.value;
+    const booksCopy = this.state.books.slice();
+
+    booksCopy.forEach((bookCopy) => {
+      if(book.id === bookCopy.id) {
+        bookCopy.shelf = newShelf;
+      }
+    });
+    this.setState({ booksCopy });
+
+
+    // const books = this.state.books.slice();
+    // books.forEach(book => {
+    //   if(book.id === id) {
+    //     book.shelf = newShelf;
+    //   }
+    // });
+    // this.setState({ books });
+
+    // BooksAPI.update(book, e.target.value);
+    // console.log('state after update:',this.state);
   }
 
   render() {
