@@ -16,27 +16,12 @@ class BooksApp extends React.Component {
   }
 
   changeShelf(book, e) {
-    const newShelf = e.target.value;
-    const booksCopy = this.state.books.slice();
-
-    booksCopy.forEach((bookCopy) => {
-      if(book.id === bookCopy.id) {
-        bookCopy.shelf = newShelf;
-      }
-    });
-    this.setState({ booksCopy });
-
-
-    // const books = this.state.books.slice();
-    // books.forEach(book => {
-    //   if(book.id === id) {
-    //     book.shelf = newShelf;
-    //   }
-    // });
-    // this.setState({ books });
-
-    // BooksAPI.update(book, e.target.value);
-    // console.log('state after update:',this.state);
+    
+    console.log('Changing shelf book:', book);
+    console.log('Changing shelf event:', e);
+    BooksAPI.update(book, e.target.value).then(() => {
+      BooksAPI.getAll().then((books) => this.setState({ books }))
+    })
   }
 
   render() {
@@ -75,7 +60,7 @@ class BooksApp extends React.Component {
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                      {this.state.books.filter(shelf => shelf.shelf === 'currentlyReading').map(book => (
+                      {this.state.books.filter(book => book.shelf === 'currentlyReading').map(book => (
                         <li>
                         <div className="book">
                           <div className="book-top">
