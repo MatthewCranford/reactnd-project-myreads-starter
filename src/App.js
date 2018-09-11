@@ -50,19 +50,7 @@ class BooksApp extends React.Component {
         )}/>
 
         <Route exact path="/" render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <BookList books={this.state.books}/>
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search" onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link>
-            </div>
-          </div>
+          <BookList books={this.state.books}/>
         )}/>
       </div>
     )
