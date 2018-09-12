@@ -13,9 +13,9 @@ class BookList extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf books={books.filter(book => {book.shelf === 'currentlyReading'})} title="Currently Reading"/>
-            <BookShelf books={books} title="Want to Read"/>
-            <BookShelf books={books} title="Read"/>
+            <BookShelf books={books.filter(book => {return book.shelf === 'currentlyReading'})} title="Currently Reading"/>
+            <BookShelf books={books.filter(book => {return book.shelf === 'wantToRead'})} title="Want to Read"/>
+            <BookShelf books={books.filter(book => {return book.shelf === 'read'})} title="Read"/>
           </div>
         </div>
         <div className="open-search">
