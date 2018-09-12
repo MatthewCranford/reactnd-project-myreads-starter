@@ -13,7 +13,7 @@ class BookList extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf books={books} title="Currently Reading"/>
+            <BookShelf books={books.filter(book => {book.shelf === 'currentlyReading'})} title="Currently Reading"/>
             <BookShelf books={books} title="Want to Read"/>
             <BookShelf books={books} title="Read"/>
           </div>
