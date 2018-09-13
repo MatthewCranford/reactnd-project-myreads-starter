@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 class Book extends Component {
     render() {
         const book = this.props.book;
+        const changeShelf = this.props.changeShelf;
 
         return (
           <li>
@@ -11,7 +12,7 @@ class Book extends Component {
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
               <div className="book-shelf-changer">
-              <select onChange={(e) => this.changeShelf(book,e)}>
+              <select onChange={(e) => changeShelf(book, e)}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>

@@ -6,20 +6,25 @@ import './App.css'
 import BookList from './Components/BookList'
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    shelves: ['currently']
+    books: []
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books });
-    })
+    });
   }
 
   changeShelf(book, e) {
+    console.log('book',book);
+    console.log('e',e.target.value);
     BooksAPI.update(book, e.target.value).then(() => {
-      BooksAPI.getAll().then((books) => this.setState({ books }))
-    })
+      BooksAPI.getAll().then((data) => {
+        console.log(data);
+        this.setState({ books: data })
+      });
+        
+    });
   }
 
   render() {
@@ -50,7 +55,7 @@ class BooksApp extends React.Component {
         )}/>
 
         <Route exact path="/" render={() => (
-          <BookList books={this.state.books}/>
+          <BookList books={this.state.books} onChange={this.changeShelf}/>
         )}/>
       </div>
     )
