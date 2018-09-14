@@ -12,7 +12,7 @@ class BookShelf extends Component {
             <h2 className="bookshelf-title">{title}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {books.map(book => (<Book changeShelf={changeShelf} book={book}/>))}
+                {books.map((book, index) => (<Book key={index} changeShelf={(shelf) => {changeShelf(book, shelf)}} book={book}/>))}
               </ol>
             </div>
           </div>
