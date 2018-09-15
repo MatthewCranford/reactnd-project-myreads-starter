@@ -16,11 +16,11 @@ class BooksApp extends React.Component {
   fetchBooks = () => {
     BooksAPI.getAll().then((books) => {
       console.log('data', books);
-      this.setState({ books});
+      this.setState({ books });
     });
   }
 
-  changeShelf = (book, shelf) => {
+  updateShelf = (book, shelf) => {
     console.log('book', book);
     console.log('e', shelf);
     BooksAPI.update(book, shelf).then(() => {
@@ -31,7 +31,9 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-
+        <Route exact path="/" render={() => (
+          <BookList books={this.state.books} updateShelf={this.updateShelf}/>
+        )}/>
         <Route path="/search" render={() => (
           <div className="search-books">
           <div className="search-books-bar">
@@ -53,10 +55,6 @@ class BooksApp extends React.Component {
             <ol className="books-grid"></ol>
           </div>
           </div>
-        )}/>
-
-        <Route exact path="/" render={() => (
-          <BookList books={this.state.books} onChange={this.changeShelf}/>
         )}/>
       </div>
     )
