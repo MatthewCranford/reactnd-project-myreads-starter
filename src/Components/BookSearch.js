@@ -17,15 +17,20 @@ class BookSearch extends Component {
 
   changeQuery = (e) => {
     const searchQuery = e.target.value;
-    this.setState({ query: e.target.value }, () => console.log('state:', this.state));
-    this.searchBook(searchQuery);
+    this.setState({ query: e.target.value }, () => {
+      console.log('state:', this.state);
+      this.searchBook(searchQuery);
+      
+    });
+
   }
 
   searchBook = (query) => {
     console.log('query',query);
     BooksAPI.search(query).then((books) => {
       console.log('result', books);
-      this.setState({ books })
+      this.setState({ books }, () => console.log('state:', this.state));
+      console.log(this.state.books);
     });
   }
   
@@ -40,9 +45,9 @@ class BookSearch extends Component {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {this.state.books.map((book, index) => (
+          {/* {this.state.books.map((book, index) => (
           <Book book={book} key={index}/>
-          ))}
+          ))} */}
         </ol>
       </div>
       </div>
