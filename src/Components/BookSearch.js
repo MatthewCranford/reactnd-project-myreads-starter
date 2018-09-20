@@ -6,7 +6,7 @@ import Book from './Book.js'
 
 class BookSearch extends Component {
   state = {
-    books: [],
+    searchedBooks: [],
     query: ''
   }
 
@@ -15,23 +15,17 @@ class BookSearch extends Component {
     this.props.searchBook(e.target.value);
   }
 
-  changeQuery = (e) => {
-    const searchQuery = e.target.value;
-    this.setState({ query: e.target.value }, () => {
-      console.log('state:', this.state);
-      this.searchBook(searchQuery);
-      
-    });
+  searchBooks = query => {
 
-  }
+    if (query) {
+      console.log('query',query);
+      BooksAPI.search(query).then((books) => {
+        console.log('result', books);
+        this.setState({ searchedBooks: books }, () => console.log('state:', this.state));
+        console.log(this.state.books);
+      });
+    }
 
-  searchBook = (query) => {
-    console.log('query',query);
-    BooksAPI.search(query).then((books) => {
-      console.log('result', books);
-      this.setState({ books }, () => console.log('state:', this.state));
-      console.log(this.state.books);
-    });
   }
   
   render() {
@@ -40,14 +34,18 @@ class BookSearch extends Component {
       <div className="search-books-bar">
         <Link to="/" className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</Link>
         <div className="search-books-input-wrapper">
-          <input type="text" placeholder="Search by title or author" onChange={this.changeQuery}/>
+          <input 
+            type="text" 
+            placeholder="Search by title or author"
+            onChange={event => this.searchBooks(event.target.value)}
+          />
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {/* {this.state.books.map((book, index) => (
+          {this.state.searchedBooks.length > 0 && this.state.searchedBooks.map((book, index) => (
           <Book book={book} key={index}/>
-          ))} */}
+          ))}
         </ol>
       </div>
       </div>

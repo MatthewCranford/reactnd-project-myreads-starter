@@ -9,6 +9,7 @@ class Book extends Component {
 
   render() {
     const book = this.props.book;
+    console.log(book);
     return (
       <li>
         <div className="book">
@@ -25,7 +26,7 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors.map(author => author).filter(authors => authors.length > 1)}</div>
+        <div className="book-authors">{book.authors && book.authors.map(author => author).filter(authors => authors.length > 1)}</div>
         </div>
       </li>
     )
