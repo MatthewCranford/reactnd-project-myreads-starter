@@ -11,12 +11,13 @@ class BookSearch extends Component {
 
   searchBooks = (query) => {
     if (query) {
-      console.log('query',query);
       BooksAPI.search(query).then((books) => {
         if (books.length > 0) {
-          console.log('result', books);
-          const filteredBooks = books.filter((book) => (book.imageLinks));
-          this.setState({ searchedBooks: filteredBooks });
+          books = books.filter((book) => (book.imageLinks)).map(book => {
+            book.shelf = 'none';
+            return book;
+          });
+          this.setState({ searchedBooks: books });
         }
         else {
           this.setState({ searchedBooks: [] });
@@ -24,7 +25,6 @@ class BookSearch extends Component {
       });
     }
     else {
-      console.log('no query:',query);
       this.setState({ searchedBooks: [] });
     }
   }
@@ -45,7 +45,7 @@ class BookSearch extends Component {
       <div className="search-books-results">
         <ol className="books-grid">
           {this.state.searchedBooks.map((book, index) => (
-          <Book book={book} key={index }/>
+          <Book book={book} key={index} updateShelf={this.props.updateShelf}/>
           ))}
         </ol>
       </div>

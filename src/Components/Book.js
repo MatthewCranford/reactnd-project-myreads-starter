@@ -4,11 +4,13 @@ import React, { Component } from 'react'
 class Book extends Component {
 
   updateShelf = (e) => {
+    console.log('Updating!', this.props.book.shelf)
     this.props.updateShelf(this.props.book, e.target.value);
   }
 
   render() {
     const book = this.props.book;
+ 
     return (
       <li>
         <div className="book">
