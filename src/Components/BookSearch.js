@@ -6,26 +6,27 @@ import Book from './Book.js'
 
 class BookSearch extends Component {
   state = {
-    searchedBooks: [],
-    query: ''
+    searchedBooks: []
   }
 
-  showBook = (e) => {
-    console.log('Input:', e.target.value);
-    this.props.searchBook(e.target.value);
-  }
-
-  searchBooks = query => {
-
+  searchBooks = (query) => {
     if (query) {
       console.log('query',query);
       BooksAPI.search(query).then((books) => {
-        console.log('result', books);
-        this.setState({ searchedBooks: books }, () => console.log('state:', this.state));
-        console.log(this.state.books);
+        if (books.length > 0) {
+          console.log('result', books);
+          const filteredBooks = books.filter((book) => (book.imageLinks));
+          this.setState({ searchedBooks: filteredBooks });
+        }
+        else {
+          this.setState({ searchedBooks: [] });
+        }
       });
     }
-
+    else {
+      console.log('no query:',query);
+      this.setState({ searchedBooks: [] });
+    }
   }
   
   render() {
@@ -43,8 +44,8 @@ class BookSearch extends Component {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {this.state.searchedBooks.length > 0 && this.state.searchedBooks.map((book, index) => (
-          <Book book={book} key={index}/>
+          {this.state.searchedBooks.map((book, index) => (
+          <Book book={book} key={index }/>
           ))}
         </ol>
       </div>
