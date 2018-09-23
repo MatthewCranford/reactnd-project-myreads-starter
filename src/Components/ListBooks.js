@@ -6,6 +6,15 @@ class ListBooks extends Component {
     render() {
       const books = this.props.books;
       const updateShelf = this.props.updateShelf;
+      const currentlyReadingBooks = books.filter(book => {
+        return book.shelf === 'currentlyReading';
+      });
+      const wantToReadBooks = books.filter(book => {
+        return book.shelf === 'wantToRead';
+      });
+      const readBooks = books.filter(book => {
+        return book.shelf === 'read';
+      });
 
       return (
         <div className="list-books">
@@ -14,9 +23,9 @@ class ListBooks extends Component {
           </div>
           <div className="list-books-content">
             <div>
-              <BookShelf books={books.filter(book => {return book.shelf === 'currentlyReading'})} updateShelf={updateShelf} title="Currently Reading"/>
-              <BookShelf books={books.filter(book => {return book.shelf === 'wantToRead'})} updateShelf={updateShelf} title="Want to Read"/>
-              <BookShelf books={books.filter(book => {return book.shelf === 'read'})} updateShelf={updateShelf} title="Read"/>
+              <BookShelf books={currentlyReadingBooks} updateShelf={updateShelf} title="Currently Reading"/>
+              <BookShelf books={wantToReadBooks} updateShelf={updateShelf} title="Want to Read"/>
+              <BookShelf books={readBooks} updateShelf={updateShelf} title="Read"/>
             </div>
           </div>
           <div className="open-search">
