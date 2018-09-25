@@ -26,12 +26,6 @@ class BooksApp extends React.Component {
     });
   }
 
-  searchBook = (query) => {
-    BooksAPI.search(query).then((result) => {
-      console.log(result);
-    });
-  }
-
   render() {
     return (
       <div className="app">
