@@ -48,7 +48,7 @@ class BookSearch extends Component {
           <Book 
             book={book} 
             key={index} 
-            updateShelf={this.props.updateShelf}
+            onUpdateShelf={this.props.onUpdateShelf}
           />
           ))}
         </ol>

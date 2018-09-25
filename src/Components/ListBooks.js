@@ -5,7 +5,7 @@ import BookShelf from './BookShelf'
 class ListBooks extends Component {
     render() {
       const books = this.props.books;
-      const updateShelf = this.props.updateShelf;
+      const onUpdateShelf = this.props.onUpdateShelf;
 
       return (
         <div className="list-books">
@@ -14,9 +14,9 @@ class ListBooks extends Component {
           </div>
           <div className="list-books-content">
             <div>
-              <BookShelf books={books} updateShelf={updateShelf} title="Currently Reading" shelf="currentlyReading"/>
-              <BookShelf books={books} updateShelf={updateShelf} title="Want to Read" shelf="wantToRead"/>
-              <BookShelf books={books} updateShelf={updateShelf} title="Read" shelf="read"/>
+              <BookShelf books={books} onUpdateShelf={onUpdateShelf} title="Currently Reading" shelf="currentlyReading"/>
+              <BookShelf books={books} onUpdateShelf={onUpdateShelf} title="Want to Read" shelf="wantToRead"/>
+              <BookShelf books={books} onUpdateShelf={onUpdateShelf} title="Read" shelf="read"/>
             </div>
           </div>
           <div className="open-search">
