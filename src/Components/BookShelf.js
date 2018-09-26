@@ -6,7 +6,7 @@ class BookShelf extends Component {
     const books = this.props.books;
     const onUpdateShelf = this.props.onUpdateShelf;
     const title = this.props.title;
-    const shelf = this.props.shelf
+    const shelf = this.props.shelf;
 
     return (
       <div className="bookshelf">
