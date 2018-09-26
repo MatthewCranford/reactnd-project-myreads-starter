@@ -5,9 +5,6 @@ import BookShelf from './BookShelf'
 
 class ListBooks extends Component {
     render() {
-      const books = this.props.books;
-      const onUpdateShelf = this.props.onUpdateShelf;
-
       return (
         <div className="list-books">
           <div className="list-books-title">
@@ -15,9 +12,9 @@ class ListBooks extends Component {
           </div>
           <div className="list-books-content">
             <div>
-              <BookShelf books={books} onUpdateShelf={onUpdateShelf} title="Currently Reading" shelf="currentlyReading"/>
-              <BookShelf books={books} onUpdateShelf={onUpdateShelf} title="Want to Read" shelf="wantToRead"/>
-              <BookShelf books={books} onUpdateShelf={onUpdateShelf} title="Read" shelf="read"/>
+              <BookShelf books={this.props.books} onUpdateShelf={this.props.onUpdateShelf} title="Currently Reading" shelf="currentlyReading"/>
+              <BookShelf books={this.props.books} onUpdateShelf={this.props.onUpdateShelf} title="Want to Read" shelf="wantToRead"/>
+              <BookShelf books={this.props.books} onUpdateShelf={this.props.onUpdateShelf} title="Read" shelf="read"/>
             </div>
           </div>
           <div className="open-search">
