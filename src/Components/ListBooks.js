@@ -8,7 +8,11 @@ class ListBooks extends Component {
     books: PropTypes.array.isRequired,
     onUpdateShelf: PropTypes.func.isRequired
   }
-  
+
+  state = {
+    showSearchPage: false
+  }
+
   render() {
     return (
       <div className="list-books">
