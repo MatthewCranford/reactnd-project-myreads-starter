@@ -6,6 +6,11 @@ import Book from './Book.js'
 
 
 class BookSearch extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onUpdateShelf: PropTypes.func.isRequired
+  }
+
   state = {
     searchedBooks: []
   }
@@ -57,11 +62,6 @@ class BookSearch extends Component {
       </div>
     )
   }
-}
-
-BookSearch.propTypes = {
-  books: PropTypes.array.isRequired,
-  onUpdateShelf: PropTypes.func.isRequired
 }
 
 export default BookSearch

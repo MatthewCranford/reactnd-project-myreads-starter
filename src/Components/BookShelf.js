@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import Book from './Book'
 
 class BookShelf extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onUpdateShelf: PropTypes.func.isRequired
+  }
+
   render() {
     return (
       <div className="bookshelf">
@@ -15,11 +20,6 @@ class BookShelf extends Component {
       </div>
     )
   }
-}
-
-BookShelf.propTypes = {
-  books: PropTypes.array.isRequired,
-  onUpdateShelf: PropTypes.func.isRequired
 }
 
 export default BookShelf
