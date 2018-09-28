@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from '../BooksAPI'
 import Book from './Book.js'
 
-
 class BookSearch extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
@@ -12,26 +11,30 @@ class BookSearch extends Component {
   }
 
   state = {
-    searchedBooks: []
+    query: '',
+    showingBooks: []
+  }
+
+  updateQuery = (query) => {
+    this.setState({ query: query.trim() }, () => {
+      this.searchBooks(this.state.query);
+    });
   }
 
   searchBooks = (query) => {
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (books.length > 0) {
-          books = books.filter((book) => (book.imageLinks)).map(book => {
-            book.shelf = 'none';
-            return book;
-          });
-          this.setState({ searchedBooks: books });
+          books = books
+          this.setState({ showingBooks: books });
         }
         else {
-          this.setState({ searchedBooks: [] });
+          this.setState({ showingBooks: [] });
         }
       });
     }
     else {
-      this.setState({ searchedBooks: [] });
+      this.setState({ showingBooks: [] });
     }
   }
   
@@ -44,13 +47,15 @@ class BookSearch extends Component {
             <input 
               type="text" 
               placeholder="Search by title or author"
-              onChange={event => this.searchBooks(event.target.value)}
+              value={this.state.query}
+              onChange={(event) => this.updateQuery(event.target.value)}
             />
           </div>
         </div>
         <div className="search-books-results">
+        {JSON.stringify(this.state)}
           <ol className="books-grid">
-            {this.state.searchedBooks.map((book, index) => (
+            {this.state.showingBooks.map((book, index) => (
             <Book 
               book={book} 
               key={index} 
