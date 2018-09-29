@@ -6,7 +6,6 @@ import Book from './Book.js'
 
 class BookSearch extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
     onUpdateShelf: PropTypes.func.isRequired
   }
 
@@ -38,6 +37,9 @@ class BookSearch extends Component {
   }
   
   render() {
+    const { onUpdateShelf } = this.props;
+    const { query, showingBooks } = this.state;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -46,18 +48,18 @@ class BookSearch extends Component {
             <input 
               type="text" 
               placeholder="Search by title or author"
-              value={this.state.query}
+              value={query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.showingBooks.map((book, index) => (
+            {showingBooks.map((book, index) => (
             <Book 
               book={book} 
               key={index} 
-              onUpdateShelf={this.props.onUpdateShelf}
+              onUpdateShelf={onUpdateShelf}
             />
             ))}
           </ol>
