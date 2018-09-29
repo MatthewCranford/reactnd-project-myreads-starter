@@ -25,7 +25,6 @@ class BookSearch extends Component {
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (books.length > 0) {
-          books = books
           this.setState({ showingBooks: books });
         }
         else {
@@ -53,7 +52,6 @@ class BookSearch extends Component {
           </div>
         </div>
         <div className="search-books-results">
-        {JSON.stringify(this.state)}
           <ol className="books-grid">
             {this.state.showingBooks.map((book, index) => (
             <Book 
