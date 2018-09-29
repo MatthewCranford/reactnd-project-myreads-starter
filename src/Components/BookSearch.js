@@ -15,8 +15,8 @@ class BookSearch extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() }, () => {
-      this.searchBooks(this.state.query);
+    this.setState({ query: query }, () => {
+      this.searchBooks(this.state.query.trim());
     });
   }
 
