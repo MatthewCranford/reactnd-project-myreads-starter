@@ -20,7 +20,7 @@ class BooksApp extends React.Component {
     });
   }
 
-  updateShelf = (book, shelf) => {
+  updateShelf = (book, shelf) =>  {
     BooksAPI.update(book, shelf).then(() => {
       this.fetchBooks();
     });
@@ -34,8 +34,13 @@ class BooksApp extends React.Component {
         <Route exact path="/" render={() => (
           <ListBooks books={books} onUpdateShelf={this.updateShelf}/>
         )}/>
-        <Route path="/search" render={() => (
-          <BookSearch onUpdateShelf={this.updateShelf}/>
+        <Route path="/search" render={( {history} ) => (
+          <BookSearch 
+            onUpdateShelf={(book,shelf) => {
+              this.updateShelf(book,shelf);
+              history.push('/');
+            }}
+          />
         )}/>
       </div>
     )
