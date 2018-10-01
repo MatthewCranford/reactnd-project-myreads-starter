@@ -1,31 +1,42 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import BookShelf from './BookShelf'
 
-function ListBooks (props) {
-  return (
-    <div className="list-books">
-      <div className="list-books-title">
-        <h1>MyReads</h1>
-      </div>
-      <div className="list-books-content">
-        <div>
-          <BookShelf books={props.books} onUpdateShelf={props.onUpdateShelf} title="Currently Reading" shelf="currentlyReading"/>
-          <BookShelf books={props.books} onUpdateShelf={props.onUpdateShelf} title="Want to Read" shelf="wantToRead"/>
-          <BookShelf books={props.books} onUpdateShelf={props.onUpdateShelf} title="Read" shelf="read"/>
+class ListBooks extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onUpdateShelf: PropTypes.func.isRequired
+  }
+
+  render() {
+    const shelves = {
+      currentlyReading: ['Currently Reading', 'currentlyReading'],
+      wantToRead: ['Want to Read', 'wantToRead'],
+      read: ['Read', 'read'],
+    }
+    return (
+      <div className="list-books">
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+        <div className="list-books-content">
+          {Object.keys(shelves).map((shelf) => 
+            <BookShelf 
+              key={shelf}
+              books={this.props.books} 
+              onUpdateShelf={this.props.onUpdateShelf} 
+              title={shelves[shelf][0]} 
+              shelf={shelves[shelf][1]}
+            />
+          )}
+        </div>
+        <div className="open-search">
+          <Link to="/search">Add a book</Link>
         </div>
       </div>
-      <div className="open-search">
-        <Link to="/search">Add a book</Link>
-      </div>
-    </div>
-  )
-}
-
-ListBooks.propTypes = {
-  books: PropTypes.array.isRequired,
-  onUpdateShelf: PropTypes.func.isRequired
+    )
+  }
 }
 
 export default ListBooks
