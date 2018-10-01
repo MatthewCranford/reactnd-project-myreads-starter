@@ -11,7 +11,6 @@ function Book (props) {
         <select 
           onChange={(e) => {
             props.onUpdateShelf(props.book, e.target.value) 
-            console.log('Book Shelf:',props.book.shelf)
           }}
           value={props.book.shelf}>
           <option value="move" disabled>Move to...</option>

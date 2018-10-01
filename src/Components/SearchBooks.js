@@ -24,8 +24,10 @@ class BookSearch extends Component {
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (books.length > 0) {
-          books = books.map((book) =>  {
-            book.shelf = 'None';
+          books = books.filter((book) => book.imageLinks).map((book) =>  {
+            if(!book.shelf) {
+              book.shelf = 'none';
+            }
             return book;
           });
           this.setState({ showingBooks: books });
