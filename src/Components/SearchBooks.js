@@ -20,10 +20,15 @@ class SearchBooks extends Component {
     });
   }
 
+  
+  // Receives a query string and perform and API search
   searchBooks = (query) => {
+    // Query exists
     if (query) {
       BooksAPI.search(query).then((books) => {
+        // Search returns results
         if (books.length > 0) {
+          // Filter out books that don't have thumbnails and give each book that doesn't have a shelf property a default property of "none"
           books = books.filter((book) => book.imageLinks).map((book) =>  {
             if(!book.shelf) {
               book.shelf = 'none';
