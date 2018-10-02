@@ -6,6 +6,7 @@ import Book from './Book'
 
 class SearchBooks extends Component {
   static propTypes = {
+    books: PropTypes.array.isRequired,
     onUpdateShelf: PropTypes.func.isRequired
   }
 
@@ -25,17 +26,22 @@ class SearchBooks extends Component {
   searchBooks = (query) => {
     // Query exists
     if (query) {
-      BooksAPI.search(query).then((books) => {
+      BooksAPI.search(query).then((searchedBooks) => {
         // Search returns results
-        if (books.length > 0) {
-          // Filter out books that don't have thumbnails and give each book that doesn't have a shelf property a default property of "none"
-          books = books.filter((book) => book.imageLinks).map((book) =>  {
-            if(!book.shelf) {
-              book.shelf = 'none';
+        if (searchedBooks.length > 0) {
+          // Filter out searchedBooks that don't have thumbnail, give each book that doesn't have a shelf property a default property of "none", and look for duplicate books, taking the book props shelf value
+          searchedBooks = searchedBooks.filter((searchedBook) => searchedBook.imageLinks).map((searchedBook) =>  {
+            if(!searchedBook.shelf) {
+              searchedBook.shelf = 'none';
+              for (let book of this.props.books) {
+                if(book.id === searchedBook.id) {
+                  searchedBook.shelf = book.shelf;
+                }
+              }
             }
-            return book;
+            return searchedBook;
           });
-          this.setState({ showingBooks: books });
+          this.setState({ showingBooks: searchedBooks });
         }
         else {
           this.setState({ showingBooks: [] });
