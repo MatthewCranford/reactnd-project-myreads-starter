@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from '../BooksAPI'
 import Book from './Book'
 
-class BookSearch extends Component {
+class SearchBooks extends Component {
   static propTypes = {
     onUpdateShelf: PropTypes.func.isRequired
   }
@@ -75,4 +75,4 @@ class BookSearch extends Component {
   }
 }
 
-export default BookSearch
+export default SearchBooks
