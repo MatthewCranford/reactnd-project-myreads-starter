@@ -29,16 +29,17 @@ class SearchBooks extends Component {
       BooksAPI.search(query).then((searchedBooks) => {
         // Search returns results
         if (searchedBooks.length > 0) {
-          // Filter out searchedBooks that don't have thumbnail, give each book that doesn't have a shelf property a default property of "none", and look for duplicate books, taking the book props shelf value
+          // Filter out searchedBooks that don't have thumbnail and then look for copies of books in the original books prop. If a match exists, take the shelf property of the book from main menu. Else set property to "none"
           searchedBooks = searchedBooks.filter((searchedBook) => searchedBook.imageLinks).map((searchedBook) =>  {
-            if(!searchedBook.shelf) {
-              searchedBook.shelf = 'none';
               for (let book of this.props.books) {
                 if(book.id === searchedBook.id) {
                   searchedBook.shelf = book.shelf;
+                  return searchedBook
+                }
+                else {
+                  searchedBook.shelf = 'none';
                 }
               }
-            }
             return searchedBook;
           });
           this.setState({ showingBooks: searchedBooks });
